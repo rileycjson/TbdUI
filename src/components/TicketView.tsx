@@ -91,7 +91,7 @@ function TicketView({ticketId, getTests, serverId, getTodo}: TicketViewProps) {
     
     return (
         <Card className='w-full h-120 mt-2 bg-accent text-center overflow-auto'>
-            <div className="flex flex-col gap-2">
+            <div className='flex flex-col gap-2'>
                 {todos?.map((todo: any, idx: number) => (
                     <TodoItem
                         key={todo.id ?? `todo-${idx}-${todo.name}`}
@@ -101,7 +101,8 @@ function TicketView({ticketId, getTests, serverId, getTodo}: TicketViewProps) {
                 ))}
             </div>
             <elevenlabs-convai
-                agent-id='agent_1601k9mknxaaff3vpjn7z7g1tfcg'
+                // agent-id='agent_1601k9mknxaaff3vpjn7z7g1tfcg'
+                agent-id='agent_0801k9n1y941eh5ss9x8ke18qssh'
                 dynamic-variables='{"server_id": ""}'
             ></elevenlabs-convai>
             <script
