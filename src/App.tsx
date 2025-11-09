@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState } from 'react';
 import axios from 'axios';
 import useSWR from 'swr';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -18,7 +20,7 @@ import RackLarge from '@/components/RackLarge';
 import InfoNav from '@/components/InfoNav';
 import TicketView from '@/components/TicketView';
 
-import { Agent } from './components/agent';
+// import { Agent } from './components/agent';
 import { Ticket } from 'lucide-react';
 
 function ticketCounts() {
@@ -105,6 +107,7 @@ function App() {
                     </CardContent>}
                 </Card>
             </div>
+            <elevenlabs-convai agent-id="agent_1601k9mknxaaff3vpjn7z7g1tfcg"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
         </ThemeProvider>
     );
 }

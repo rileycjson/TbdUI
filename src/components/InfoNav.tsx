@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/card';
+
 interface InfoNavProps {
     serverId: string;
     getTickets: any;
