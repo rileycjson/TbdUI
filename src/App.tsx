@@ -47,6 +47,32 @@ function getTickets(serverId: string) {
     };
 }
 
+function getTests(serverId: string) {
+    const { data, error, isLoading } = useSWR(`https://548474a3e6f8.ngrok-free.app/server/${serverId}/tests`,
+        axios, {
+            refreshInterval: 250,
+        }
+    );
+
+    return {
+        tests: data,
+        isLoading: isLoading,
+        isError: error,
+    }
+};
+
+function getTodo(testId: string) {
+    const { data, error, isLoading } = useSWR(`https://548474a3e6f8.ngrok-free.app/tests/${testId}`,
+        axios
+    );
+
+    return {
+        todo: data,
+        isLoading: isLoading,
+        isError: error,
+    }
+};
+
 function App() {
     const [rack, setRack] = useState(null);
     const [server, setServer] = useState(null);
@@ -100,7 +126,7 @@ function App() {
                     </CardHeader>
                     {server && <CardContent>
                         <InfoNav serverId={server} getTickets={getTickets} setTicket={setTicket}/>
-                        {ticket ? <TicketView ticketId={ticket} /> : <ServerInfoView serverId={server} />}
+                        {ticket ? <TicketView ticketId={ticket} getTests={getTests} serverId={server} getTodo={getTodo}/> : <ServerInfoView serverId={server} />}
                     </CardContent>}
                 </Card>
             </div>

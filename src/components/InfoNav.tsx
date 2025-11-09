@@ -26,13 +26,16 @@ function InfoNav({serverId, getTickets, setTicket}: InfoNavProps) {
             onClick={() => {setTicket(null) }}>
                 Server Info
             </Card>
-            {tickets.data.tickets.map((t: any) => (
+            {/* {tickets.data.tickets.map((t: any) => (
                 <Card className='w-fit p-6 bg-accent' 
                 onClick={() => {setTicket(t['jira_id']) }}
                 key={t['id']}>
                     Open: {t['jira_id']}
                 </Card>
-            ))}
+            ))} */}
+            <Card className='w-fit p-6 bg-accent' onClick={() => {setTicket('Tests') }}>
+                Tests
+            </Card>
         </div>
     );
 }
