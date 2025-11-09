@@ -22,7 +22,8 @@ function InfoNav({serverId, getTickets, setTicket}: InfoNavProps) {
 
     return (
         <div className='flex flex-row gap-2 p-2'>
-            <Card className='w-fit p-6 bg-accent'>
+            <Card className='w-fit p-6 bg-accent'
+            onClick={() => {setTicket(null) }}>
                 Server Info
             </Card>
             {tickets.data.tickets.map((t: any) => (

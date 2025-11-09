@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useSWR from 'swr';
-import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/mode-toggle';
+
 import {
     Card,
     CardAction,
@@ -22,6 +21,7 @@ import TicketView from '@/components/TicketView';
 
 // import { Agent } from './components/agent';
 import { Ticket } from 'lucide-react';
+import ServerInfoView from './components/ServerInfoView';
 
 function ticketCounts() {
     const { data, error, isLoading } = useSWR(
@@ -57,7 +57,7 @@ function App() {
     const { tickets, isLoading, isError } = ticketCounts();
 
     return (
-        <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+        <>
             <div className='w-screen h-screen flex gap-10 bg-background p-10'>
                 <div className='flex-3 flex flex-col'>
                     {rack === null ? (
@@ -97,18 +97,15 @@ function App() {
                         >
                             Back
                         </CardDescription>
-                        <CardAction>
-                            <ModeToggle />
-                        </CardAction>
                     </CardHeader>
                     {server && <CardContent>
                         <InfoNav serverId={server} getTickets={getTickets} setTicket={setTicket}/>
-                        {ticket && <TicketView ticketId={ticket} />}
+                        {ticket ? <TicketView ticketId={ticket} /> : <ServerInfoView serverId={server} />}
                     </CardContent>}
                 </Card>
             </div>
             <elevenlabs-convai agent-id="agent_1601k9mknxaaff3vpjn7z7g1tfcg"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-        </ThemeProvider>
+        </>
     );
 }
 
