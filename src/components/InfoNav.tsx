@@ -12,16 +12,16 @@ function InfoNav({serverId, getTickets, setTicket}: InfoNavProps) {
 
 
     if (isLoading) {
-        return <Card className='w-fit p-6 bg-accent'>Loading tickets...</Card>;
+        return <Card className='w-fit p-6 bg-accent'>Loading...</Card>;
     }
     if (isError) {
         return (
-            <Card className='w-fit p-6 bg-accent'>Error loading tickets</Card>
+            <Card className='w-fit p-6 bg-accent'>Error Loading!</Card>
         );
     }
 
     return (
-        <div className='flex flex-row gap-2 p-2'>
+        <div className='flex flex-row gap-2'>
             <Card className='w-fit p-6 bg-accent'
             onClick={() => {setTicket(null) }}>
                 Server Info

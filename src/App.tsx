@@ -104,7 +104,6 @@ function App() {
                     </CardContent>}
                 </Card>
             </div>
-            <elevenlabs-convai agent-id="agent_1601k9mknxaaff3vpjn7z7g1tfcg"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
         </>
     );
 }

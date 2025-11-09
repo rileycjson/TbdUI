@@ -53,7 +53,7 @@ function Floor({ floorId, setRack , tickets}: FloorProps) {
     }
 
     return (
-        <div className='flex justify-around'>
+        <div className='flex justify-center gap-6'>
             {RoomList.map(([roomId, rackCount]) => (
                 <Room
                     numRacks={rackCount}
