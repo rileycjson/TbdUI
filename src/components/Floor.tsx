@@ -4,14 +4,16 @@ import RackSmall from '@/components/RackSmall';
 interface FloorProps {
     floorId: string;
     setRack: any;
+    tickets: any;
 }
 
 interface RoomProps {
     numRacks: number;
     roomId: string;
+    tickets?: any;
 }
 
-function Floor({ floorId, setRack }: FloorProps) {
+function Floor({ floorId, setRack , tickets}: FloorProps) {
     const RoomList: Array<[string, number]> = [
         ['123', 5],
         ['124', 5],
@@ -26,15 +28,17 @@ function Floor({ floorId, setRack }: FloorProps) {
                 <Card className='w-full h-full p-2 flex flex-col gap-1'>
                     <h4 className='w-full text-center'>Room {roomId}</h4>
                     {Array.from({ length: numRacks }, (_, i) => (
-                        <div className='flex flex-row items-center gap-5'>
+                        <div className='flex flex-row items-center gap-5' key={i}>
                             <RackSmall
                                 rackId={floorId + roomId + 'A' + (numRacks - i)}
                                 setRack={setRack}
+                                tickets={tickets}
                             />
                             <h4>{numRacks - i}</h4>
                             <RackSmall
                                 rackId={floorId + roomId + 'B' + (numRacks - i)}
                                 setRack={setRack}
+                                tickets={tickets}
                             />
                         </div>
                     ))}
@@ -54,6 +58,7 @@ function Floor({ floorId, setRack }: FloorProps) {
                 <Room
                     numRacks={rackCount}
                     roomId={roomId}
+                    key={roomId}
                 />
             ))}
         </div>

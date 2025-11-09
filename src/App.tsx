@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import useSWR from 'swr';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ModeToggle } from '@/components/mode-toggle';
 import {
@@ -13,19 +15,62 @@ import {
 
 import Floor from '@/components/Floor';
 import RackLarge from '@/components/RackLarge';
+import InfoNav from '@/components/InfoNav';
+import TicketView from '@/components/TicketView';
+
+import { Agent } from './components/agent';
+import { Ticket } from 'lucide-react';
+
+function ticketCounts() {
+    const { data, error, isLoading } = useSWR(
+        'https://548474a3e6f8.ngrok-free.app/server/tickets',
+        axios
+    );
+    return {
+        tickets: data,
+        isLoading: isLoading,
+        isError: error,
+    };
+}
+
+function getTickets(serverId: string) {
+    const { data, error, isLoading } = useSWR(
+        `https://548474a3e6f8.ngrok-free.app/server/${serverId}`,
+        axios
+    );
+    return {
+        tickets: data,
+        isLoading: isLoading,
+        isError: error,
+    };
+}
 
 function App() {
     const [rack, setRack] = useState(null);
     const [server, setServer] = useState(null);
+    const [ticket, setTicket] = useState(null);
+
+    // eleven('1');
+
+    const { tickets, isLoading, isError } = ticketCounts();
 
     return (
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
             <div className='w-screen h-screen flex gap-10 bg-background p-10'>
                 <div className='flex-3 flex flex-col'>
                     {rack === null ? (
-                        <Floor floorId='R200' setRack={setRack} />
+                        <Floor
+                            floorId='R200'
+                            setRack={setRack}
+                            tickets={isLoading || isError ? undefined : tickets}
+                        />
                     ) : (
-                        <RackLarge rackId={rack} setRack={setRack} setServer={setServer} />
+                        <RackLarge
+                            rackId={rack}
+                            setRack={setRack}
+                            setServer={setServer}
+                            tickets={isLoading || isError ? undefined : tickets}
+                        />
                     )}
                 </div>
                 <Card
@@ -36,15 +81,28 @@ function App() {
                     }
                 >
                     <CardHeader>
-                        <CardTitle>{rack === null ? "Select a Rack" : server === null ? "Select a Server": server}</CardTitle>
-                        <CardDescription>Card Description</CardDescription>
+                        <CardTitle>
+                            {rack === null
+                                ? 'Select a Rack'
+                                : server === null
+                                ? 'Select a Server'
+                                : server}
+                        </CardTitle>
+                        <CardDescription
+                            onClick={() => {
+                                server ? setServer(null) : setRack(null);
+                            }}
+                        >
+                            Back
+                        </CardDescription>
                         <CardAction>
                             <ModeToggle />
                         </CardAction>
                     </CardHeader>
-                    <CardContent>
-                        <p>Card Content</p>
-                    </CardContent>
+                    {server && <CardContent>
+                        <InfoNav serverId={server} getTickets={getTickets} setTicket={setTicket}/>
+                        {ticket && <TicketView ticketId={ticket} />}
+                    </CardContent>}
                 </Card>
             </div>
         </ThemeProvider>
